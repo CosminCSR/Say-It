@@ -77,11 +77,11 @@ export default function HomePage(props) {
       <h3 className="font-medium">
         Record&nbsp;
         <span className="text-emerald-700">
-          <i class="fa-solid fa-arrow-right"></i>
+          <i className="fa-solid fa-arrow-right"></i>
         </span>
         &nbsp;Transcribe&nbsp;
         <span className="text-emerald-700">
-          <i class="fa-solid fa-arrow-right"></i>
+          <i className="fa-solid fa-arrow-right"></i>
         </span>
         &nbsp;Translate
       </h3>

@@ -1,18 +1,13 @@
 import React from "react";
 
+
+//planing to add a login here
 export default function Header() {
   return(
-    <header className='flex items-center justify-between gap-4 p-4'>
-      <a href="/">
+    //default header 
+    <header className='flex items-center justify-between p-4 w-full ml-0'>
+      <a href="/" className="block p-2 rounded-md hover:bg-emerald-100 transition mainButton">
         <h1 className="font-medium">Say<span className="text-emerald-700 bold">It</span></h1>
-      </a>
-      <a href="/">
-        <button className = "flex items-center gap-2 specialButton px-4 py-2 rounded-lg text-emerald-700">
-          <p>
-            New
-          </p>
-          <i className="fa-duotone fa-solid fa-plus"></i>
-        </button>
       </a>
     </header>
   )

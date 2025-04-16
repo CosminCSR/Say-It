@@ -69,42 +69,35 @@ export default function HomePage(props) {
   }, [recordingStatus])
 
   return(
-    <main className = "flex-1 p-4 flex flex-col gap-3 sm:gap-4 justify-center text-center pb-20">
+    <main className = "flex-1 p-4 flex flex-col sm:gap-4 justify-center text-center pb-50">
       <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl">
         Say
         <span className="text-emerald-700 bold">It</span>
       </h1>
       <h3 className="font-medium">
-        Record&nbsp;
-        <span className="text-emerald-700">
-          <i className="fa-solid fa-arrow-right"></i>
-        </span>
-        &nbsp;Transcribe&nbsp;
-        <span className="text-emerald-700">
-          <i className="fa-solid fa-arrow-right"></i>
-        </span>
-        &nbsp;Translate
+        Capture your voice, convert it to text, translate it instantly, or 
+        <label className="text-emerald-700 cursor-pointer hover:text-blue-600 duration-200" >
+        &nbsp;Upload&nbsp;
+          <input onChange = {(e) => {const tempFile = e.target.files[0]; setFile(tempFile)}} className="hidden" type="file" accept = ".mp3, .wav"/>
+        </label> 
+        your own .mp3 — all in one seamless experience.
       </h3>
-      <button onClick={recordingStatus === 'recording' ? stopRecording : startRecording} className="flex specialButton px-4 py-2 rounded-xl items-center text-base justify-between gap-4 mx-auto w-72 max-w-full my-4 ">
-        <p className="text-emerald-700">{recordingStatus === 'inactive'?'Record' :`Stop recording`}</p>
+      <button onClick={recordingStatus === 'recording' ? stopRecording : startRecording} className="flex mainButton px-4 py-2 rounded-xl items-center text-base justify-between gap-4 mx-auto w-72 max-w-full my-4 ">
+        <p className="text-emerald-700">{recordingStatus === 'inactive' ?'Try Recording!' 
+                                                                        :<div className="flex items-end h-4 gap-[2px]">
+                                                                          <div className="voice-bar" />
+                                                                          <div className="voice-bar" />
+                                                                          <div className="voice-bar" />
+                                                                         </div>}</p>
         <div className="flex items-center gap-2">
-          {duration && (
+          {duration > 0 && (
             <p className="text-sm">
               {duration}s
             </p>
           )}
-          <i className={`fa-solid fa-microphone duration-200 ${recordingStatus === "recording" ? "text-rose-300" : ""}`}></i>
+          <i className={`fa-solid fa-microphone duration-200 ${recordingStatus === "recording" ? "text-red-500" : ""}`}></i>
         </div>
       </button>
-      <p className="text-base">
-        Or&nbsp;
-        <label className="text-emerald-700 cursor-pointer hover:text-blue-600 duration-200" >
-          Upload
-          <input onChange = {(e) => {const tempFile = e.target.files[0]; setFile(tempFile)}} className="hidden" type="file" accept = ".mp3, .wav"/>
-        </label>
-        &nbsp;a .mp3 file
-      </p>
-      <p className="italic text-slate-500">Free now free forever</p>
     </main>
   )
 } 

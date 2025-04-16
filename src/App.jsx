@@ -8,15 +8,18 @@ import { MessageTypes } from './utils/presets'
 
 
 function App() {
+  //states for file upload/recording
   const [file,setFile] = useState(null)
   const [audioStream,setAudioStream] = useState(null)
-  const [output, setOutput] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [output, setOutput] = useState(null) // transcription result
+  //feedback for cases
+  const [loading, setLoading] = useState(false) 
   const [finished, setFinished] = useState(false)
   const [downloading, setDownloading] = useState(false)
   
   const isAudioAvailable = file || audioStream
 
+  //reset audio
   function handleAudioReset() {
     setFile(null)
     setAudioStream(null)
@@ -25,10 +28,11 @@ function App() {
   const worker = useRef(null)
 
   useEffect(() => {
+    //set up web worker
     if (!worker.current) {
       worker.current = new Worker(new URL('./utils/whisper.worker.js', import.meta.url),{ type: "module" })
     }
-
+    //listen message from worker
     const onMessageReceived = async (e) => {
       switch(e.data.type) {
         case "DOWNLOADING": 
@@ -54,6 +58,7 @@ function App() {
     return () => worker.current.removeEventListener("message", onMessageReceived)
   })
 
+  //read and decode audio data from file/stream
   async function readAudioFrom(file) {
     const sampling_rate = 16000
     const audioCTX = new AudioContext({sampleRate: sampling_rate})
@@ -63,6 +68,7 @@ function App() {
     return audio
   }
 
+  //check for file/stream and sends to worker
   async function handleFormSubmission() {
     if (!file && !audioStream) {
       return
@@ -74,9 +80,10 @@ function App() {
     worker.current.postMessage({type: MessageTypes.INFERENCE_REQUEST, audio, model_name})
   }
 
+  //rendering the site based on info that we get
   return (
     <>
-    <div className = "flex flex-col max-w-[1000px] mx-auto w-full">
+    <div className = "flex flex-col mx-auto w-full">
       <section className = "min-h-screen flex flex-col">
         <Header />
         {output ? (<Information output = {output}/>) 
@@ -84,9 +91,10 @@ function App() {
                           : isAudioAvailable ? (<FileDisplay handleFormSubmission = {handleFormSubmission} handleAudioReset = {handleAudioReset} file = {file} audioStream = {setAudioStream} />) 
                                              : (<HomePage setFile = {setFile} setAudioStream = {setAudioStream}/>) }
       </section>
-    <h1 className = 'text-green-400'></h1>
     <footer>
-
+      <p className="text-xs fixed bottom-4 left-1/2 -translate-x-1/2 text-center text-slate-500">
+        SayIt can make mistakes. Be careful to check your information.
+      </p>
     </footer>
     </div>
     </>

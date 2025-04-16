@@ -72,28 +72,30 @@ export default function Information(props) {
 
   return(
     <div>
-      <main className = "flex-1 p-4 flex flex-col gap-3 sm:gap-4 md: gap-5 justify-center text-center pb-20 w-fit max-w-full mx-auto w-72">
-      <h1 className="font-semibold text-4xl sm:text-5xl md:text-5xl">
+      <main className = "flex-1 p-4 flex flex-col gap-3 sm:gap-4 md: gap-5 justify-center text-center pt-47 w-fit max-w-full mx-auto w-72">
+      <h1 className="font-semibold text-4xl sm:text-5xl md:text-5xl pb-3">
         Your
         <span className="text-emerald-700 bold">Transcription</span>
       </h1>
-      <div className="grid grid-cols-2 mx-auto bg-white border-solid border-blue shadow rounded-full overflow-hidden items-center">
-        <button onClick={() => setTab("transcription")} className={"px-4 duration-200 py-1 font-medium " + (tab === "transcription" ? "bg-emerald-400 text-white" 
-                                                                               : "text-emerald-400 hover:text-emerald-600")}>
+      <div className="grid grid-cols-2 mx-auto bg-white border-solid border-blue shadow rounded-full overflow-hidden items-center ">
+        <button onClick={() => setTab("transcription")} className={"hover:cursor-pointer px-4 duration-200 py-1 font-medium " + (tab === "transcription" ? "bg-emerald-700 text-white" 
+                                                                               : "text-emerald-700 hover:text-emerald-600")}>
           Transcription
         </button>
-        <button onClick={() => setTab("translation")} className={"px-4 duration-200 py-1 font-medium " + (tab === "translation" ? "bg-emerald-400 text-white" 
-                                                                             : "text-emerald-400 hover:text-emerald-600")}>
+        <button onClick={() => setTab("translation")} className={"hover:cursor-pointer px-4 duration-200 py-1 font-medium " + (tab === "translation" ? "bg-emerald-700 text-white" 
+                                                                             : "text-emerald-700 hover:text-emerald-600")}>
           Translation
         </button>
       </div>
       {tab === "transcription" ? (<Transcription {...props} textElement = {textElement}/>) 
                                : (<Translation {...props} toLanguage={toLanguage} setToLanguage={setToLanguage} textElement={textElement} translating = {translating} setTranslating={setTranslating} setTranslation={setTranslation} generateTranslation={generateTranslation} />)}
-      <div className="flex item-center gap-4 mx-auto">
-        <button onClick={handleCopy} title="Copy" className="specialButton px-4 ">
-          <i className="fa-solid fa-copy"></i>
+      <div className="flex item-center gap-4 mx-auto ">
+        <button onClick={handleCopy} title="Copy" className="mainButton px-4 flex">
+          <p className="text-slate-800 bold">Copy&nbsp;</p>
+          <i className="fa-solid fa-copy text-slate-800"></i>
         </button>
-        <button onClick={handleDownload} title="Download" className="specialButton px-4 ">
+        <button onClick={handleDownload} title="Download" className="mainButton px-4 flex">
+          <p className="bold">Download&nbsp;</p>
         <i className="fa-solid fa-download"></i>
         </button>
       </div>

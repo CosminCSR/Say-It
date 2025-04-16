@@ -1,25 +1,25 @@
 import React from "react";
 
 export default function Transcribing(props) {
-  const {downloading} = props
+  const { downloading } = props
 
   return (
-    <div className="flex items-center flex-1 flex-col justify-center gap-10 mdLgap-14 pb-24">
+    <div className="flex items-center flex-1 flex-col justify-center gap-10 md:gap-14 pb-70">
       <div className="flex items-center flex-col gap-2 sm:gap-4">
         <h1 className="font-semibold text-4xl sm:text-5xl md:text-6xl">
           <span className="text-emerald-700 bold">Transcribing</span>
         </h1>
-        <p>
-          {!downloading ? "warming up cylinders" : "core cylinders engaged"}
-        </p>
+        <div className="flex items-center gap-3">
+          {[0, 1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className="w-3 h-3 bg-emerald-700 rounded-full animate-bounce"
+              style={{ animationDelay: `${i * 0.15}s` }}
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex flex-col gap-2 sm:gap-4 max-w-[400px] mx-auto w-full">
-        {[0, 1, 2].map(val => {
-          return (
-            <div key={val} className={`rounded-full h-2 sm:h-3 bg-slate-400 loading loading${val}`}/>
-          )
-        })}
-      </div>
+
     </div>
   )
 }

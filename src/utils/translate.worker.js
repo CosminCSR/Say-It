@@ -6,7 +6,7 @@ env.useBrowserCache = false;
 
 class MyTranslationPipeline {
     static task = 'translation';
-    static model = 'Xenova/opus-mt-en-ro';
+    static model = 'Xenova/nllb-200-distilled-600M';
     static instance = null;
 
     static async getInstance(progress_callback = null) {

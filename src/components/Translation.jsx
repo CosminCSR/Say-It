@@ -5,13 +5,11 @@ export default function Translation(props) {
   const {textElement, toLanguage, translating, setToLanguage, generateTranslation} = props
   return(
     <div className="flex flex-col gap-2 max-w-[400px] w-full mx-auto">
-      {!translating && (<><p>
-        To Language
-      </p>
-      <div className="flex items-stretch">
-        <select value={toLanguage} onChange={(e) => setToLanguage(e.target.value)} className="flex-1 outline-non bg-white focus:outline-none border border-solid border-transparent ">
+      {!translating && (<>
+      <div className="flex items-stretch gap-3">
+        <select value={toLanguage} onChange={(e) => setToLanguage(e.target.value)} className="flex-1 border border-transparent focus:outline-none focus:ring-0 focus:border-transparent">
           <option value={'Select language'}>
-            Select language
+            Select Language
           </option>
           {Object.entries(LANGUAGES).map(([key, value]) => {
             return(
@@ -21,7 +19,7 @@ export default function Translation(props) {
             )
           })}
         </select>
-        <button onClick={generateTranslation} className="specialButton">
+        <button onClick={generateTranslation} className="mainButton">
           Translate
         </button>
       </div></>)}

@@ -1,16 +1,22 @@
-# React + Vite
+# SayIt
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SayIt is a browser-based app built with React and Tailwind CSS that lets users record audio, transcribe speech to text, and translate content—all locally in the browser.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Record voice directly in the browser
+- Upload .mp3 or .wav files
+- Transcribe speech to text
+- Translate transcriptions into multiple languages
+- No data is stored or sent to a server
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Tailwind CSS
+- @xenova/transformers for in-browser machine learning
+- Web Workers for local processing
 
-Used Tailwind V4 and React
+## How it Works
 
-The text is saved in browser so we save a lot of space
+SayIt runs entirely in the browser. Audio is processed and translated using machine learning models loaded via Web Workers. This approach keeps your data local and reduces server-side dependencies.

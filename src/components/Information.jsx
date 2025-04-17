@@ -43,7 +43,7 @@ export default function Information(props) {
 
 
   const textElement = tab === 'transcription' ? output.map(val => val.text)
-                                              : translation || 'No translation'
+                                              : translation || 'Here will be your translation!'
 
 
   //function to handle the copy button                                              
@@ -78,9 +78,9 @@ export default function Information(props) {
   return(
     <div>
       <main className = "flex-1 p-4 flex flex-col gap-3 sm:gap-4 md: gap-5 justify-center text-center pt-47 w-fit max-w-full mx-auto w-72">
-      <h1 className="font-semibold text-4xl sm:text-5xl md:text-5xl pb-3">
+      <h1 className="font-bold text-4xl sm:text-5xl md:text-5xl pb-3">
         Your
-        <span className="text-emerald-700 bold">Transcription</span>
+        <span className="text-emerald-700">Transcription</span>
       </h1>
       <div className="grid grid-cols-2 mx-auto bg-white border-solid border-blue shadow rounded-full overflow-hidden items-center ">
         <button onClick={() => setTab("transcription")} className={"hover:cursor-pointer px-4 duration-200 py-1 font-medium " + (tab === "transcription" ? "bg-emerald-700 text-white" 

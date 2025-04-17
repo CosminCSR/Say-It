@@ -13,9 +13,11 @@ export default function Information(props) {
   const worker = useRef()
 
   useEffect(() => {
+    //set up web worker
     if (!worker.current) {
       worker.current = new Worker(new URL('../utils/translate.worker.js', import.meta.url),{ type: "module" })
     }
+    //check on message recieved to log on console if there is a problem
     const onMessageReceived = async (e) => {
       switch(e.data.status) {
         case "initiate": 
@@ -44,9 +46,11 @@ export default function Information(props) {
                                               : translation || 'No translation'
 
 
+  //function to handle the copy button                                              
   function handleCopy() {
     navigator.clipboard.writeText(textElement)
   }
+  //function to handle the download button 
   function handleDownload() {
     const element = document.createElement('a')
     const file = new Blob([textElement], {type:'text/plain'})
@@ -55,6 +59,7 @@ export default function Information(props) {
     document.body.appendChild(element)
     element.click()
   }
+  //function to generate translation only if they selected a language
   function generateTranslation() {
     if (translating || toLanguage === "Select language") {
       return
@@ -87,6 +92,7 @@ export default function Information(props) {
           Translation
         </button>
       </div>
+      {/*we check what the user want to do with their file and import the props */}
       {tab === "transcription" ? (<Transcription {...props} textElement = {textElement}/>) 
                                : (<Translation {...props} toLanguage={toLanguage} setToLanguage={setToLanguage} textElement={textElement} translating = {translating} setTranslating={setTranslating} setTranslation={setTranslation} generateTranslation={generateTranslation} />)}
       <div className="flex item-center gap-4 mx-auto ">

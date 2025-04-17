@@ -1,10 +1,11 @@
 import {pipeline, env} from '@xenova/transformers'
 import { MessageTypes } from './presets'
 
+//configure the enviroment (it seems that we need this to make it work in google chrome)
 env.allowLocalModels = false;
 env.useBrowserCache = false;
 
-
+//loading the translation model
 class MyTranscriptionPipeline {
     static task = 'automatic-speech-recognition'
     static model = 'Xenova/whisper-tiny.en'
@@ -19,6 +20,7 @@ class MyTranscriptionPipeline {
     }
 }
 
+// we listen for messages from the main thread
 self.addEventListener('message', async (event) => {
     const { type, audio } = event.data
     if (type === MessageTypes.INFERENCE_REQUEST) {
@@ -26,6 +28,7 @@ self.addEventListener('message', async (event) => {
     }
 })
 
+// function that transcribes the audio by checking for errors in the pipeline
 async function transcribe(audio) {
     sendLoadingMessage('loading')
 
@@ -39,9 +42,10 @@ async function transcribe(audio) {
 
     sendLoadingMessage('success')
 
-    const stride_length_s = 5
+    const stride_length_s = 5 //duration overlap between chunks
 
     const generationTracker = new GenerationTracker(pipeline, stride_length_s)
+    //running the transcription pipeline
     await pipeline(audio, {
         top_k: 0,
         do_sample: false,
@@ -54,6 +58,7 @@ async function transcribe(audio) {
     generationTracker.sendFinalResult()
 }
 
+//callback to track model download progress
 async function load_model_callback(data) {
     const { status } = data
     if (status === 'progress') {
@@ -62,6 +67,7 @@ async function load_model_callback(data) {
     }
 }
 
+// status messages
 function sendLoadingMessage(status) {
     self.postMessage({
         type: MessageTypes.LOADING,
@@ -69,6 +75,7 @@ function sendLoadingMessage(status) {
     })
 }
 
+//transcription progress
 async function sendDownloadingMessage(file, progress, loaded, total) {
     self.postMessage({
         type: MessageTypes.DOWNLOADING,
@@ -79,6 +86,7 @@ async function sendDownloadingMessage(file, progress, loaded, total) {
     })
 }
 
+//class to track transciption progress
 class GenerationTracker {
     constructor(pipeline, stride_length_s) {
         this.pipeline = pipeline
@@ -154,6 +162,7 @@ class GenerationTracker {
     }
 }
 
+//send transc res to main app
 function createResultMessage(results, isDone, completedUntilTimestamp) {
     self.postMessage({
         type: MessageTypes.RESULT,

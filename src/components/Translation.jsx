@@ -3,6 +3,7 @@ import { LANGUAGES } from "../utils/presets.js";
 
 export default function Translation(props) {
   const {textElement, toLanguage, translating, setToLanguage, generateTranslation} = props
+  //here we check what language the user selected to translate in and take word by word and translate it
   return(
     <div className="flex flex-col gap-2 max-w-[400px] w-full mx-auto">
       {!translating && (<>

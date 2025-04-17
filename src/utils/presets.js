@@ -1,3 +1,4 @@
+//presets for each language that we can translate to
 export const MessageTypes = {
   DOWNLOADING: "DOWNLOADING",
   LOADING: "LOADING",

@@ -3,6 +3,7 @@ import React from "react";
 export default function Transcribing(props) {
   const { downloading } = props
 
+  //a page that only shows while transcribing the recording with an animation
   return (
     <div className="flex items-center flex-1 flex-col justify-center gap-10 md:gap-14 pb-70">
       <div className="flex items-center flex-col gap-2 sm:gap-4">

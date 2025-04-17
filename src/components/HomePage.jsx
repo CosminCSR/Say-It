@@ -10,6 +10,7 @@ export default function HomePage(props) {
   const mediaRecorder = useRef(null)
   const mimeType = 'audio/webm'
 
+  //function to start recording and register the user's voice
   async function startRecording() {
     let tempStream
 
@@ -44,6 +45,8 @@ export default function HomePage(props) {
     setAudioChunks(localAudioChunks)
   }
 
+
+  //function to stop recording and set variables to indicate that it's over
   async function stopRecording() {
     setRecordingStatus('inactive')
     console.log("Stop Recording")
@@ -57,6 +60,7 @@ export default function HomePage(props) {
     }
   }
 
+  //use effect to start a timer while it's recording 
   useEffect(() => {
     if(recordingStatus === "inactive") {
       return
@@ -82,6 +86,7 @@ export default function HomePage(props) {
         </label> 
         your own .mp3 — all in one seamless experience.
       </h3>
+      {/* we are checking while pressing the button if it's recording or not to show the phrase 'Try Recording!' and if it is, it will show an animation and the time that it has been recording for */}
       <button onClick={recordingStatus === 'recording' ? stopRecording : startRecording} className="flex mainButton px-4 py-2 rounded-xl items-center text-base justify-between gap-4 mx-auto w-72 max-w-full my-4 ">
         <p className="text-emerald-700">{recordingStatus === 'inactive' ?'Try Recording!' 
                                                                         :<div className="flex items-end h-4 gap-[2px]">

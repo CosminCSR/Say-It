@@ -3,6 +3,7 @@ import React from "react";
 export default function FileDisplay(props) {
   const {handleAudioReset, file, audioStream, handleFormSubmission} = props
 
+  //page to see if your file was a custom one that the user recorder, or uploaded a .mp3 file
   return(
     <div>
       <main className = "flex-1 p-4 flex flex-col sm:gap-4 md: gap-5 justify-center pt-50 text-center max-w-[600px] mx-auto">

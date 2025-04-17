@@ -1,9 +1,11 @@
 import { pipeline } from '@xenova/transformers';
 import { env } from '@xenova/transformers';
 
+//configure the enviroment (it seems that we need this to make it work in google chrome)
 env.allowLocalModels = false;
 env.useBrowserCache = false;
 
+//loading the translation model
 class MyTranslationPipeline {
     static task = 'translation';
     static model = 'Xenova/nllb-200-distilled-600M';
@@ -18,15 +20,17 @@ class MyTranslationPipeline {
     }
 }
 
+// we listen for messages from the main thread
 self.addEventListener('message', async (event) => {
     let translator = await MyTranslationPipeline.getInstance(x => {
         self.postMessage(x)
     })
     console.log(event.data)
+    // perfom the translation
     let output = await translator(event.data.text, {
         tgt_lang: event.data.tgt_lang,
         src_lang: event.data.src_lang,
-
+        //calback for translation progress
         callback_function: x => {
             self.postMessage({
                 status: 'update',
@@ -35,7 +39,8 @@ self.addEventListener('message', async (event) => {
         }
     })
 
-    console.log('HEHEHHERERE', output)
+    // check final output for debugging
+    console.log('here is the final output', output)
 
     self.postMessage({
         status: 'complete',
